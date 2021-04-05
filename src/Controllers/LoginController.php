@@ -4,15 +4,9 @@ namespace Sparkout\SparkoutLogin\Controllers;
 use Laravel\Lumen\Routing\Controller;
 use Illuminate\Http\Request;
 use Sparkout\SparkoutLogin\Models\User;
+use Sparkout\SparkoutLogin\Helpers\Helper;
 
 class LoginController extends Controller {
-
-
-    public function test() {
-        # code...
-        echo "LoginController test";
-        return response()->json(User::all());
-    }
 
     /**
      * @param Request $request
@@ -20,22 +14,22 @@ class LoginController extends Controller {
      * @return Json
      */
     public function createAccount(Request $request) {
-        # code...
-        $validator = $this->validate($request, [
+        $this->validate($request, [
             'name' => 'required',
             'email' => 'required|email|unique:users',
             'password' => 'required'
         ]);
+        $request->password = Helper::encrypt($request->password);
         $user = User::create($request->all());
         return response()->json(['status' => true, 'user' => $user, 'message' => 'User account created successfully']);
     }
 
     public function makeLogin(Request $request) {
-        $validator = $this->validate($request, [
+        $this->validate($request, [
             'email' => 'required|email',
             'password' => 'required'
         ]);
-        $user = User::where('email', $request->email)->where('password', $request->password)->first();
+        $user = User::where('email', $request->email)->where('password', Helper::encrypt($request->password))->first();
         if ($user) {
             return response()->json(['status' => true, 'user' => $user, 'message' => 'User logged in successfully']);
         } else {
@@ -44,7 +38,6 @@ class LoginController extends Controller {
     }
 
     public function getAllUsers(Request $request) {
-        # code...
         $users = User::all();
         return response()->json(['status' => true, 'users' => $users]);
     }
