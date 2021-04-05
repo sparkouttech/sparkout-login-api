@@ -1,0 +1,58 @@
+{
+    "name": "sparkout/sparkout-login",
+    "description": "My awesome package",
+    "keywords": [
+        "sparkout",
+        "sparkout-login"
+    ],
+    "homepage": "https://github.com/sparkout/sparkout-login",
+    "license": "MIT",
+    "type": "library",
+    "authors": [
+        {
+            "name": "sivabharathy",
+            "email": "gotocva@gmail.com",
+            "role": "Developer"
+        }
+    ],
+    "support": {
+        "issues": "https://github.com/sparkout/sparkout-login/issues",
+        "source": "https://github.com/sparkout/sparkout-login"
+    },
+    "require": {
+        "php": "^7.0",
+        "illuminate/support": "^5.8|^6.0|^7.0|^8.0"
+    },
+    "require-dev": {
+        "orchestra/testbench": "3.8.*",
+        "phpunit/phpunit": "^7.0|^8.0|^9.0"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sparkout\\SparkoutLogin\\": "src"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sparkout\\SparkoutLogin\\Tests\\": "tests"
+        }
+    },
+    "scripts": {
+        "test": "vendor/bin/phpunit",
+        "test-coverage": "vendor/bin/phpunit --coverage-html coverage"
+
+    },
+    "config": {
+        "sort-packages": true
+    },
+    "extra": {
+        "laravel": {
+            "providers": [
+                "Sparkout\\SparkoutLogin\\SparkoutLoginServiceProvider"
+            ],
+            "aliases": {
+                "SparkoutLogin": "Sparkout\\SparkoutLogin\\SparkoutLoginFacade"
+            }
+        }
+    }
+}
